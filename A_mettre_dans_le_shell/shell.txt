@@ -1,0 +1,38 @@
+from trainsApp.models import Trains
+
+class Trains(models.Model):
+    trainsId = models.AutoField(primary_key=True)
+    origine = models.CharField(max_length=20)
+    destination = models.CharField(max_length=20)
+    heure_de_depart = models.CharField(max_length=20)
+    heure_arrive = models.CharField(max_length=20)
+    description = models.CharField(max_length=20000)
+
+trains_list = [
+    {'origine': 'Paris', 'destination': 'Marseille', 'heure_de_depart': '08:00', 'heure_arrive': '12:00', 'description': "Embarquez à bord du train en direction de Marseille et laissez-vous emporter par un voyage empreint de découverte et d'aventure."},
+    {'origine': 'Lyon', 'destination': 'Nice', 'heure_de_depart': '09:30', 'heure_arrive': '14:00', 'description': "Embarquez à bord du train en direction de Nice et profitez d'un voyage confortable et relaxant à travers les paysages magnifiques de la Côte d'Azur."},
+    {'origine': 'Bordeaux', 'destination': 'Toulouse', 'heure_de_depart': '10:15', 'heure_arrive': '12:45', 'description': "Embarquez à bord du train en direction de Toulouse et découvrez la beauté de la région Occitanie."},
+    {'origine': 'Strasbourg', 'destination': 'Lille', 'heure_de_depart': '11:00', 'heure_arrive': '15:30', 'description': "Embarquez à bord du train en direction de Lille et laissez-vous séduire par le charme de cette ville animée."},
+    {'origine': 'Nantes', 'destination': 'Rennes', 'heure_de_depart': '13:45', 'heure_arrive': '16:30', 'description': "Embarquez à bord du train en direction de Rennes et découvrez la richesse culturelle de la Bretagne."},
+    {'origine': 'Montpellier', 'destination': 'Béziers', 'heure_de_depart': '14:20', 'heure_arrive': '15:10', 'description': "Embarquez à bord du train en direction de Béziers et profitez d'un voyage paisible à travers les vignobles du Languedoc."},
+    {'origine': 'Dijon', 'destination': 'Reims', 'heure_de_depart': '15:10', 'heure_arrive': '18:20', 'description': "Embarquez à bord du train en direction de Reims et découvrez le patrimoine historique de cette ville célèbre pour son champagne."},
+    {'origine': 'Lyon', 'destination': 'Toulon', 'heure_de_depart': '16:00', 'heure_arrive': '20:45', 'description': "Embarquez à bord du train en direction de Toulon et laissez-vous enchanter par les plages de sable fin de la Côte d'Azur."},
+    {'origine': 'Angers', 'destination': 'Le Mans', 'heure_de_depart': '17:30', 'heure_arrive': '19:00', 'description': "Embarquez à bord du train en direction du Mans et découvrez la beauté pittoresque de la région Pays de la Loire."},
+    {'origine': 'Nîmes', 'destination': 'Avignon', 'heure_de_depart': '18:15', 'heure_arrive': '19:00', 'description': "Embarquez à bord du train en direction d'Avignon et plongez au cœur de la Provence."},
+    {'origine': 'Marseille', 'destination': 'Lyon', 'heure_de_depart': '08:30', 'heure_arrive': '11:00', 'description': "Embarquez à bord du train en direction de Lyon et profitez d'un voyage relaxant à travers les paysages pittoresques de la campagne française."},
+    {'origine': 'Nice', 'destination': 'Paris', 'heure_de_depart': '10:00', 'heure_arrive': '14:30', 'description': "Embarquez à bord du train en direction de Paris et laissez-vous séduire par le charme de la capitale française."},
+    {'origine': 'Toulouse', 'destination': 'Bordeaux', 'heure_de_depart': '11:15', 'heure_arrive': '13:30', 'description': "Embarquez à bord du train en direction de Bordeaux et découvrez la richesse culturelle de cette ville dynamique."},
+    {'origine': 'Lille', 'destination': 'Strasbourg', 'heure_de_depart': '12:00', 'heure_arrive': '16:00', 'description': "Embarquez à bord du train en direction de Strasbourg et plongez-vous dans l'atmosphère unique de cette ville située à la frontière franco-allemande."},
+    {'origine': 'Rennes', 'destination': 'Nantes', 'heure_de_depart': '14:00', 'heure_arrive': '16:00', 'description': "Embarquez à bord du train en direction de Nantes et découvrez les trésors cachés de cette ville portuaire historique."},
+    {'origine': 'Béziers', 'destination': 'Montpellier', 'heure_de_depart': '15:00', 'heure_arrive': '16:00', 'description': "Embarquez à bord du train en direction de Montpellier et plongez-vous dans l'atmosphère méditerranéenne de cette ville dynamique."},
+    {'origine': 'Reims', 'destination': 'Dijon', 'heure_de_depart': '16:30', 'heure_arrive': '19:00', 'description': "Embarquez à bord du train en direction de Dijon et découvrez la richesse gastronomique de cette région célèbre pour sa moutarde."},
+    {'origine': 'Toulon', 'destination': 'Lyon', 'heure_de_depart': '17:00', 'heure_arrive': '21:30', 'description': "Embarquez à bord du train en direction de Lyon et laissez-vous charmer par l'atmosphère animée de cette ville située au confluent du Rhône et de la Saône."},
+    {'origine': 'Le Mans', 'destination': 'Angers', 'heure_de_depart': '18:30', 'heure_arrive': '20:00', 'description': "Embarquez à bord du train en direction d'Angers et découvrez la beauté des châteaux de la Loire qui parsèment la région."},
+    {'origine': 'Avignon', 'destination': 'Nîmes', 'heure_de_depart': '19:15', 'heure_arrive': '20:00', 'description': "Embarquez à bord du train en direction de Nîmes et découvrez les vestiges romains impressionnants qui témoignent de l'histoire de la ville."}
+
+]
+
+for train_data in trains_list:
+    train = Trains(**train_data)
+    train.save()
+
