@@ -1,0 +1,147 @@
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Détails du train</title>
+        <style>
+            #index{
+                position: absolute;
+                left: 20px;
+                text-decoration:wavy;
+                color: white;
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f7f7f7;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            h1 {
+                margin: 0;
+                padding: 20px;
+                background-color: #003366;
+                color: #fff;
+                text-align: center;
+                border-bottom: 4px solid #1abc9c;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                width: 70%;
+                max-width: 800px;
+                border-radius: 10px;
+            }
+
+            li {
+                margin-bottom: 20px;
+                padding: 15px;
+                border-left: 5px solid #003366;
+                transition: all 0.3s ease;
+            }
+
+            li:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .label {
+                font-weight: bold;
+                color: #003366;
+            }
+
+            .label:after {
+                content: ":";
+            }
+
+            .detail {
+                margin-left: 10px;
+                color: #555;
+            }
+
+            .detail:before {
+                content: '"';
+                color: #003366;
+            }
+
+            .detail:after {
+                content: '"';
+                color: #003366;
+            }
+            .suivant,
+.precedent {
+    text-decoration: none;
+    color: #003366;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #003366;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.suivant:hover,
+.precedent:hover {
+    background-color: #003366;
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Positionnement des liens */
+.suivant {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.precedent {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+        </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let num_train_loc = document.getElementById("num_train");
+            let numeroTrain = parseInt(num_train_loc.innerHTML);
+            let train_suivant = numeroTrain + 1;
+            let train_precedent = numeroTrain - 1;
+            let suivant = document.getElementById("suivant");
+            let precedent = document.getElementById("precedent");
+            suivant.addEventListener("click", function() {
+                window.location.href = `http://127.0.0.1:8000/trains/trains/detail/${train_suivant}/`;
+            });
+            precedent.addEventListener("click", function() {
+                if (numeroTrain === 1 ) {
+                    alert("Il n'y a pas de train precedent celui-ci")
+                    
+                }else{
+                window.location.href = `http://127.0.0.1:8000/trains/trains/detail/${train_precedent}/`;
+                }
+            });
+        });
+    </script>
+    </head>
+    <body>
+
+        <h1>             <a id="index"  href="http://127.0.0.1:8000/trains/index">            Gare Express
+        </a>
+            Détails du train numéro : <span id="num_train">{{ trains.trainsId }}</span> </h1>
+        <ul>
+            <li><span class="label">Origine</span><span class="detail" >{{ trains.origine }}</span></li>
+            <li><span class="label">Destination</span><span class="detail">{{ trains.destination }}</span></li>
+            <li><span class="label">Heure de départ</span><span class="detail">{{ trains.heure_de_depart }}</span></li>
+            <li><span class="label">Heure d'arrivée</span><span class="detail">{{ trains.heure_arrive }}</span></li>
+            <li><span class="label">Description</span><span class="detail">{{ trains.description }}</span></li>
+        </ul>
+        <a href="#" id="suivant" class="suivant">Train suivant</a>
+        <a href="#" id="precedent" class="precedent">Train précédent</a>
+    </body>
+    </html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la recherche</title>
+    <style>
+        #index{
+                position: absolute;
+                left: 20px;
+                text-decoration:wavy;
+                color: white;
+            }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 20px;
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            border-bottom: 4px solid #1abc9c;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 70%;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid #003366;
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .label {
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .label:after {
+            content: ":";
+        }
+
+        .detail {
+            margin-left: 10px;
+            color: #555;
+        }
+
+        .detail:before {
+            content: '"';
+            color: #003366;
+        }
+
+        .detail:after {
+            content: '"';
+            color: #003366;
+        }
+        .detail-button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .detail-button:hover {
+            background-color: #0056b3;
+        }
+
+        .suivant,
+        .precedent {
+            text-decoration: none;
+            color: #003366;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #003366;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .suivant:hover,
+        .precedent:hover {
+            background-color: #003366;
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .suivant {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .precedent {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+        }
+    </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const query = urlParams.get('q');
+        let searchValue = document.getElementById('value');
+        searchValue.innerHTML = query;
+    });
+</script>
+</head>
+<body>
+    
+    <h1> <a id="index"  href="http://127.0.0.1:8000/trains/index">            Gare Express
+    </a>Résultats de la recherche pour "<span id="value"></span>"</h1>
+    <ul>
+        {% if resultats %}
+            {% for resultat in resultats %}
+                <li>
+                    <span class="label">Numéro de train</span><span class="detail">{{ resultat.trainsId }}</span><br>
+                    <span class="label">Origine</span><span class="detail">{{ resultat.origine }}</span><br>
+                    <span class="label">Destination</span><span class="detail">{{ resultat.destination }}</span><br>
+                    <span class="label">Heure de départ</span><span class="detail">{{ resultat.heure_de_depart }}</span><br>
+                    <span class="label">Heure d'arrivée</span><span class="detail">{{ resultat.heure_arrive }}</span><br>
+                    <a href="{% url 'train_detail' resultat.trainsId %}" class="detail-button">Voir le détail</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>Aucun résultat trouvé pour "{{ query }}"</li>
+        {% endif %}
+    </ul>
+    <a href="#" id="suivant" class="suivant">Train suivant</a>
+    <a href="#" id="precedent" class="precedent">Train précédent</a>
+</body>
+</html>

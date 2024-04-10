@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horaires des Trains</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Styles CSS à ajouter ici */
+        header {
+            height: 60px;
+            background-color: #003366;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .site-name {
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+        .search-bar {
+        width: 300px; /* Ajustez la largeur selon vos besoins */
+        position: relative;
+    }
+
+    .search-bar input[type="text"] {
+        width: calc(100% - 120px); /* Ajustez selon la largeur du bouton */
+        padding: 10px; /* Augmentez la taille pour correspondre au padding du bouton */
+        border-radius: 5px;
+        border: 1px solid #ccc; /* Couleur de la bordure */
+        background-color: #fff;
+        box-sizing: border-box;
+    }
+
+    .search-bar button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px; 
+        height: 100%;
+        background-color: #003366;
+        color: #fff;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-bar button:hover {
+        background-color: #0056b3; 
+    }
+
+
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            margin: 0;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+            
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .detail-button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .detail-button:hover {
+            background-color: #0056b3;
+        }
+        
+        #hide{
+            background-color:#f4f4f4 ;
+            border: 0 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="site-name">
+            Gare Express
+        </div>
+        <div class="search-bar">
+            <form action="{% url 'recherche' %}" method="GET" class="search-bar">
+                <input type="text" name="q" placeholder="Rechercher une destination...">
+                <button type="submit">Rechercher</button>
+            </form>
+                    </div>
+        <nav>
+            <ul>
+                <li><a href="http://127.0.0.1:8000/trains/random/">Random</a></li>
+                <li><a href="{% url 'ajouter_train' %}">Ajouter un train</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numero de train</th>
+                    <th>Origine</th>
+                    <th>Destination</th>
+                    <th>Heure de Départ</th>
+                    <th>Heure d'Arrivée</th>
+                    <th id="hide"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                <tr>
+                    <td>{{ train.trainsId }}</td>
+                    <td>{{ train.origine }}</td>
+                    <td>{{ train.destination }}</td>
+                    <td>{{ train.heure_de_depart }}</td>
+                    <td>{{ train.heure_arrive }}</td>
+                    <td><a href="{% url 'train_detail' train.trainsId %}" class="detail-button">Voir le détail</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+        
+    </main>
+</body>
+</html>
